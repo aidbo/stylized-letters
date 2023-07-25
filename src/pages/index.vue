@@ -6,25 +6,123 @@ defineOptions({
 })
 const letters = ref('')
 
-// function covertToUnicode(str: string) {
-//   // 形式如 U+1D401，需要考虑超过4位16进制的情况
-//   // 𝐁 会被识别为两个字符，所以需要使用 Array.from
-//   const codePoints = Array.from(str).map(char => char.codePointAt(0))
-//   const hex = codePoints.map(codePoint => codePoint?.toString(16).toUpperCase())
-//   const paddedHex = hex.map(hex => hex?.padStart(4, '0'))
-//   const unicode = paddedHex.map(hex => `U+${hex}`).join(' ')
-//   return unicode
-// }
-
 function covertToStylizedLetters(str: string, map: { capital: number; small: number }) {
+  function plus(codePoint: number, offset: number) {
+    // 有一些字符在 Unicode 中为了避免重复编码，需要转换成另一个字符
+    // http://www.unicode.org/charts/PDF/U1D400.pdf
+    const unicode = codePoint + offset
+    const reserved: { original: number; target: number }[] = [
+      {
+        original: 0x1D455,
+        target: 0x210E,
+      },
+      {
+        original: 0x1D49D,
+        target: 0x212C,
+      },
+      {
+        original: 0x1D4A0,
+        target: 0x2130,
+      },
+      {
+        original: 0x1D4A1,
+        target: 0x2131,
+      },
+      {
+        original: 0x1D4A3,
+        target: 0x210B,
+      },
+      {
+        original: 0x1D4A4,
+        target: 0x2110,
+      },
+      {
+        original: 0x1D4A7,
+        target: 0x2112,
+      },
+      {
+        original: 0x1D4A8,
+        target: 0x2133,
+      },
+      {
+        original: 0x1D4AD,
+        target: 0x211B,
+      },
+      {
+        original: 0x1D4BA,
+        target: 0x212F,
+      },
+      {
+        original: 0x1D4BC,
+        target: 0x210A,
+      },
+      {
+        original: 0x1D4C4,
+        target: 0x2134,
+      },
+      {
+        original: 0x1D506,
+        target: 0x212D,
+      },
+      {
+        original: 0x1D50B,
+        target: 0x210C,
+      },
+      {
+        original: 0x1D50C,
+        target: 0x2111,
+      },
+      {
+        original: 0x1D515,
+        target: 0x211C,
+      },
+      {
+        original: 0x1D51D,
+        target: 0x2128,
+      },
+      {
+        original: 0x1D53A,
+        target: 0x2102,
+      },
+      {
+        original: 0x1D53F,
+        target: 0x210D,
+      },
+      {
+        original: 0x1D545,
+        target: 0x2115,
+      },
+      {
+        original: 0x1D547,
+        target: 0x2119,
+      },
+      {
+        original: 0x1D548,
+        target: 0x211A,
+      },
+      {
+        original: 0x1D549,
+        target: 0x211D,
+      },
+      {
+        original: 0x1D551,
+        target: 0x2124,
+      },
+    ]
+    const reservedItem = reserved.find(item => item.original === unicode)
+    if (reservedItem)
+      return String.fromCodePoint(reservedItem.target)
+
+    return String.fromCodePoint(unicode)
+  }
   return Array.from(str).map((char) => {
     const codePoint = char.codePointAt(0)
     if (codePoint) {
       if (codePoint >= 0x41 && codePoint <= 0x5A)
-        return String.fromCodePoint(codePoint + map.capital)
+        return plus(codePoint, map.capital)
 
       if (codePoint >= 0x61 && codePoint <= 0x7A)
-        return String.fromCodePoint(codePoint + map.small)
+        return plus(codePoint, map.small)
 
       return char
     }
