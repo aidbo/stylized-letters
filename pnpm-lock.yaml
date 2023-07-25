@@ -32,6 +32,9 @@ dependencies:
   vue-demi:
     specifier: ^0.14.5
     version: 0.14.5(vue@3.3.4)
+  vue-gtag:
+    specifier: ^2.0.1
+    version: 2.0.1(vue@3.3.4)
   vue-i18n:
     specifier: ^9.2.2
     version: 9.2.2(vue@3.3.4)
@@ -10679,6 +10682,14 @@ packages:
       vue: 3.3.4
       vue-demi: 0.13.11(vue@3.3.4)
     dev: true
+
+  /vue-gtag@2.0.1(vue@3.3.4):
+    resolution: {integrity: sha512-aM4A58FVL0wV2ptYi+xzAjeg+pQVRyUcfBc5UkXAwQrR4t3WBhor50Izp2I+3Oo7+l+vWJ7u78DGcNzReb8S/A==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      vue: 3.3.4
+    dev: false
 
   /vue-i18n@9.2.2(vue@3.3.4):
     resolution: {integrity: sha512-yswpwtj89rTBhegUAv9Mu37LNznyu3NpyLQmozF3i1hYOhwpG8RjcjIFIIfnu+2MDZJGSZPXaKWvnQA71Yv9TQ==}
