@@ -56,10 +56,16 @@ const { t } = useI18n()
       tap block to copy
     </div>
   </div>
-  <div absolute bottom-0 pb2 color-gray-500>
-    ref: <a
-      href="https://www.compart.com/en/unicode/block/U+1D400" target="_blank"
-    >https://www.compart.com/en/unicode/block/U+1D400</a>
+  <div flex="~ col" pt-8 op-10 hover:op-50>
+    <div color-gray-500>
+      References: <a
+        color-blue-500
+        href="https://www.compart.com/en/unicode/block/U+1D400" target="_blank"
+      >https://www.compart.com/en/unicode/block/U+1D400</a>
+    </div>
+    <div color-gray-500>
+      Copyright © 2023 <a color-blue-500 href="https://aidbodev.com" target="_blank">Aidbo Studio</a>. All rights reserved.
+    </div>
   </div>
 </template>
 
