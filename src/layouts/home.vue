@@ -1,12 +1,18 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <main
-    px-4 py-10
-    text="center gray-700 dark:gray-200"
+    h-8 min-h-screen flex flex-col items-center justify-center
+    text="center gray-700"
   >
     <RouterView />
-    <TheFooter />
-    <div mx-auto mt-5 text-center text-sm opacity-50>
-      [Home Layout]
-    </div>
   </main>
 </template>
+
+<style scoped>
+main {
+ background: radial-gradient(circle,#fff 0%,#96dbf8 100%);
+  background-size: cover;
+}
+</style>

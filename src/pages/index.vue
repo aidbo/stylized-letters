@@ -1,52 +1,65 @@
 <script setup lang="ts">
+import { mapping } from '~/mapping'
+
 defineOptions({
   name: 'IndexPage',
 })
-const user = useUserStore()
-const name = ref(user.savedName)
+const letters = ref('')
 
-const router = useRouter()
-function go() {
-  if (name.value)
-    router.push(`/hi/${encodeURIComponent(name.value)}`)
+// function covertToUnicode(str: string) {
+//   // 形式如 U+1D401，需要考虑超过4位16进制的情况
+//   // 𝐁 会被识别为两个字符，所以需要使用 Array.from
+//   const codePoints = Array.from(str).map(char => char.codePointAt(0))
+//   const hex = codePoints.map(codePoint => codePoint?.toString(16).toUpperCase())
+//   const paddedHex = hex.map(hex => hex?.padStart(4, '0'))
+//   const unicode = paddedHex.map(hex => `U+${hex}`).join(' ')
+//   return unicode
+// }
+
+function covertToStylizedLetters(str: string, map: { capital: number; small: number }) {
+  return Array.from(str).map((char) => {
+    const codePoint = char.codePointAt(0)
+    if (codePoint) {
+      if (codePoint >= 0x41 && codePoint <= 0x5A)
+        return String.fromCodePoint(codePoint + map.capital)
+
+      if (codePoint >= 0x61 && codePoint <= 0x7A)
+        return String.fromCodePoint(codePoint + map.small)
+
+      return char
+    }
+    return ''
+  }).join('')
 }
-
 const { t } = useI18n()
 </script>
 
 <template>
-  <div>
-    <div text-4xl>
-      <div i-carbon-campsite inline-block />
+  <div flex="~ col" items-center justify-start gap-1>
+    <div v-if="!letters" class="title-font" pb-8 text-5xl font-bold>
+      Stylized Letters
     </div>
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank">
-        Vitesse
-      </a>
-    </p>
-    <p>
-      <em text-sm opacity-75>{{ t('intro.desc') }}</em>
-    </p>
-
-    <div py-4 />
-
     <TheInput
-      v-model="name"
-      :placeholder="t('intro.whats-your-name')"
-      autocomplete="false"
-      @keydown.enter="go"
+      v-model="letters"
+      :placeholder="t('input.placeholder')"
+      mb-8
     />
-    <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
-
-    <div>
-      <button
-        m-3 text-sm btn
-        :disabled="!name"
-        @click="go"
-      >
-        {{ t('button.go') }}
-      </button>
+    <div v-if="letters" class="grid gap-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 xl:grid-cols-4">
+      <TheOutput
+        v-for="map in mapping"
+        :key="map.name"
+        :title="map.name"
+        :content="covertToStylizedLetters(letters, map)"
+      />
     </div>
+    <div v-if="letters" color-gray-500>
+      tap block to copy
+    </div>
+  </div>
+  <div absolute bottom-0 pb2 color-gray-500>
+    ref: <a
+      href="https://www.compart.com/en/unicode/block/U+1D400" target="_blank"
+    >https://www.compart.com/en/unicode/block/U+1D400</a>
   </div>
 </template>
 
@@ -54,3 +67,11 @@ const { t } = useI18n()
 meta:
   layout: home
 </route>
+
+<style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@500&display=swap');
+  .title-font {
+  font-family: 'Nunito', sans-serif;
+  color: #5E6A78;
+  }
+</style>
