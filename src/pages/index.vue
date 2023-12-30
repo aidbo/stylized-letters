@@ -7,7 +7,7 @@ defineOptions({
 })
 const letters = ref('')
 
-function covertToStylizedLetters(str: string, map: { capital: number; small: number }) {
+function covertToStylizedLetters(str: string, map: { capital: number, small: number }) {
   function plus(codePoint: number, offset: number) {
     const unicode = codePoint + offset
     const reservedItem = reserved.find(item => item.original === unicode)
@@ -80,6 +80,6 @@ meta:
 
 .title-font {
   font-family: 'Nunito', sans-serif;
-  color: #5E6A78;
+  color: #5e6a78;
 }
 </style>

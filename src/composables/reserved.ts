@@ -1,6 +1,6 @@
 // 有一些字符在 Unicode 中为了避免重复编码，需要转换成另一个字符
 // http://www.unicode.org/charts/PDF/U1D400.pdf
-export const reserved: { original: number; target: number }[] = [
+export const reserved: { original: number, target: number }[] = [
   {
     original: 0x1D455,
     target: 0x210E,

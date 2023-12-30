@@ -13,6 +13,6 @@
 
 <style scoped>
 main {
-   background: radial-gradient(circle, #fff 0%,#96dbf8 100%);
+  background: radial-gradient(circle, #fff 0%, #96dbf8 100%);
 }
 </style>
