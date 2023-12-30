@@ -3,8 +3,9 @@
 
 <template>
   <main
-    h-8 min-h-screen flex flex-col items-center justify-center
+    h-screen flex flex-col items-center justify-center
     text="center gray-700"
+    style="overflow-y: scroll;"
   >
     <RouterView />
   </main>
@@ -12,7 +13,6 @@
 
 <style scoped>
 main {
- background: radial-gradient(circle,#fff 0%,#96dbf8 100%);
-  background-size: cover;
+   background: radial-gradient(circle, #fff 0%,#96dbf8 100%);
 }
 </style>
