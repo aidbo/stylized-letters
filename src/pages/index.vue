@@ -66,11 +66,11 @@ function covertToStylizedLetters(str: string, offset: { capital: number, small: 
     <div color-gray-500>
       References: <a
         color-blue-500
-        href="https://www.compart.com/en/unicode/block/U+1D400" target="_blank"
+        href="https://www.unicode.org/charts/PDF/U1D400.pdf" target="_blank"
       >unicode/block/U+1D400</a>
     </div>
     <div color-gray-500>
-      Copyright © 2023 <a color-blue-500 href="https://aidbodev.com" target="_blank">Aidbo Studio</a>. All rights
+      Copyright © 2023 <a color-blue-500 href="https://aidbo.fun" target="_blank">Aidbo Studio</a>. All rights
       reserved.
     </div>
   </div>
